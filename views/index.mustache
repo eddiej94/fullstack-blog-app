@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Blog</title>
+</head>
+<body>
+ <h1 class="mb-4" style = "text-align:center;">Blog Articles</h1>
+
+
+ </br>
+
+  <div class="container" >
+  
+    <a href="/add-article" class="btn btn-success">New Article</a>
+    
+    <p></p>
+    
+    <div class="list-group" style = "text-align:center;">
+    {{#articles}}
+
+    <div class="d-flex w-100 justify-content-between">
+      <h2 class="col-md-8">{{title}}</h2>
+
+    </div>
+    <p class="mb-1">{{body}}</p>
+
+    <div>
+
+            <a href="/edit/{{articleid}}">
+                <button type="submit" class="btn-success" >Edit</button>
+            </a> 
+
+        <form action="/delete-article" method="POST" style=" display: inline-block">
+            <input type="hidden" name="articleid" value="{{articleid}}"/>
+            <button class="btn-danger" > Delete </button>
+        
+        </form>
+    </div> 
+
+          <br>
+
+    {{/articles}}
+  </div>
+
+<br>
+
+</div>
+</body>
+</html>
