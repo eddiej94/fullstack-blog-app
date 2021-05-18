@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 const db = pgp(CONNECTION_STRING)
 
 
-app.get('/index',(req,res)=> {
+app.get('/',(req,res)=> {
 
         db.any('SELECT articleid, title,body FROM articles')
         .then((articles) => {
@@ -39,7 +39,7 @@ db.none('DELETE FROM articles WHERE articleid = $1', [blogid])
 
 .then(() => {
 
-    res.redirect('/index') 
+    res.redirect('/') 
 
     })
 }) 
@@ -53,7 +53,7 @@ app.post('/update-article',(req,res) => {
         db.none('UPDATE articles SET title = $1, body = $2 WHERE articleid = $3',[title,description,articleid] )
     .then(() => {
 
-        res.redirect('/index')
+        res.redirect('/')
     })
 })
 
@@ -84,7 +84,7 @@ app.post('/add-article',(req,res) => {
 
   db.none('INSERT INTO articles(title,body) VALUES($1,$2)',[title,description])
   .then(() => {
-    res.redirect('/index')
+    res.redirect('/')
   })
 
 })
