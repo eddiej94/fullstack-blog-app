@@ -8,10 +8,6 @@ const pgp = require('pg-promise')()
 const PORT = process.env.PORT || 8080
 const CONNECTION_STRING = "postgres://gkjvfsdjqffntr:c09db802c5b3f9553690ea596727dbadc9ca86711e8acaabc122ab17f8a90ef5@ec2-3-214-3-162.compute-1.amazonaws.com:5432/dam1k28i0efu2k"
 
-
-
-
-
 app.engine('mustache',mustacheExpress())
 app.set('views','./views')
 app.set('view engine','mustache')
@@ -21,11 +17,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 const db = pgp(CONNECTION_STRING)
 
-app.get('/ping', (req, res) => {
-
-  res.send ('pong');
-
-})
 
 app.get('/',(req,res)=> {
 
