@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const pgp = require('pg-promise')()
 
 
-const PORT = process.env.PORT || 3004
+const PORT = process.env.PORT || 8080
 const CONNECTION_STRING = "postgres://localhost:5432/blogdata"
 
 
