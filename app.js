@@ -17,9 +17,9 @@ app.use(bodyParser.urlencoded({extended: false}))
 const db = pgp(CONNECTION_STRING)
 
 
-app.get('/',(req,res)=> {
+app.get('/', async(req,res)=> {
 
-        db.any('SELECT articleid, title,body FROM articles')
+        await db.any('SELECT articleid, title,body FROM articles')
         .then((articles) => {
 
             res.render('index',{articles: articles})
@@ -30,11 +30,11 @@ app.get('/',(req,res)=> {
 
 })
 
-app.post('/delete-article',(req,res) => {
+app.post('/delete-article', async(req,res) => {
 
     let blogid = req.body.articleid
 
-db.none('DELETE FROM articles WHERE articleid = $1', [blogid])
+await db.none('DELETE FROM articles WHERE articleid = $1', [blogid])
 
 .then(() => {
 
@@ -43,24 +43,24 @@ db.none('DELETE FROM articles WHERE articleid = $1', [blogid])
     })
 }) 
 
-app.post('/update-article',(req,res) => {
+app.post('/update-article', async(req,res) => {
         
     let title = req.body.title
     let description = req.body.description
     let articleid = req.body.articleid
     
-        db.none('UPDATE articles SET title = $1, body = $2 WHERE articleid = $3',[title,description,articleid] )
+        await db.none('UPDATE articles SET title = $1, body = $2 WHERE articleid = $3',[title,description,articleid] )
     .then(() => {
 
         res.redirect('/')
     })
 })
 
-app.get('/edit/:articleid',(req,res) => {
+app.get('/edit/:articleid', async(req,res) => {
 
         let articleid = req.params.articleid
 
-    db.one('SELECT articleid,title,body FROM articles WHERE articleid = $1',[articleid])
+    await db.one('SELECT articleid,title,body FROM articles WHERE articleid = $1',[articleid])
 
    .then((article) => {
 
@@ -75,13 +75,13 @@ app.get('/add-article',(req,res) => {
   res.render('add-article')
 })
 
-app.post('/add-article',(req,res) => {
+app.post('/add-article', async(req,res) => {
 
   let title = req.body.title
   let description = req.body.description
  
 
-  db.none('INSERT INTO articles(title,body) VALUES($1,$2)',[title,description])
+  await db.none('INSERT INTO articles(title,body) VALUES($1,$2)',[title,description])
   .then(() => {
     res.redirect('/')
   })
